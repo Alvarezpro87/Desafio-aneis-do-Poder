@@ -1,16 +1,13 @@
 import { DataSource } from 'typeorm';
+import 'dotenv/config'; // Certifique-se de que o pacote dotenv está instalado
 
-//Configuração do Postgres.
+//Configuração do Postgres
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  host: 'localhost',         
-  port: 5432,               
-  username: 'postgres',   
-  password: '123',     
-  database: 'desafio_aneis', 
-  synchronize: true,         
+  url: process.env.DATABASE_URL, // Variável de ambiente
+  synchronize: true,  // Para desenvolvimento, True cria/atualiza tabelas automaticamente
   logging: false,
   entities: ['./src/entities/*.ts'], 
-  migrations: [],
+  migrations: ['./src/migrations/*.ts'], // Se estiver usando migrações
   subscribers: [],
 });
