@@ -4,7 +4,6 @@ import 'reflect-metadata';
 import { AppDataSource } from './data-source';
 import ringRoutes from './routes/ringRoutes';
 import 'dotenv/config';
-console.log(process.env.DATABASE_URL);
 import swaggerDocument from './swagger.json';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors'; 
