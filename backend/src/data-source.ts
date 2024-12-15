@@ -1,13 +1,16 @@
 import { DataSource } from 'typeorm';
-import 'dotenv/config'; // Certifique-se de que o pacote dotenv está instalado
+import 'dotenv/config'; 
+console.log('Database URL:', process.env.DATABASE_URL);
 
-//Configuração do Postgres
+const isSSLRequired = process.env.DATABASE_URL?.includes('render.com');
+
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  url: process.env.DATABASE_URL, // Variável de ambiente
-  synchronize: true,  // Para desenvolvimento, True cria/atualiza tabelas automaticamente
+  url: process.env.DATABASE_URL, 
+  synchronize: true, 
   logging: false,
-  entities: ['./src/entities/*.ts'], 
-  migrations: ['./src/migrations/*.ts'], // Se estiver usando migrações
+  ssl: isSSLRequired ? { rejectUnauthorized: false } : undefined, 
+  entities: ['./src/entities/*.ts'],
+  migrations: ['./src/migrations/*.ts'],
   subscribers: [],
 });
